@@ -1,5 +1,5 @@
 from datetime import datetime
-from functools import wraps
+from functools import wraps, lru_cache
 
 
 def time_stamped(func):
@@ -17,10 +17,6 @@ def time_stamped(func):
 @time_stamped
 def my_pow(*args, k_pow=2):
     return [x ** k_pow for x in args]
-
-
-print('Result my_pow with default k_pow:', *my_pow(1_000, 2_555, 5_123, 6_000))
-print('Result my_pow with k_pow=3:', *my_pow(1_000, 2_555, 5_123, 6_000, k_pow=3))
 
 
 def isPrime(n):
@@ -42,13 +38,6 @@ def type_number(lst, _type='even'):
         return [x for x in lst if isPrime(x)]
 
 
-print('Only even from list:', type_number([11, 22, 33, 44, 55], 'even'))
-print('Only odd from list:', type_number([111, 222, 354, 456, 555], 'odd'))
-print('Only simple from list:', type_number([11, 12, 30, 44, 5, 3], 'simple'))
-print()
-print()
-
-
 def trace(line):
     """
     Trace calls made to the decorated function.
@@ -67,6 +56,7 @@ def trace(line):
     ____ <-- fib(1) == 1
      <-- fib(3) == 3
     """
+
     def deco_func(func):
         # func.indent = 0
         indent = 0
@@ -78,13 +68,18 @@ def trace(line):
             indent += 1
             val = func(n)
             indent -= 1
-            print(line * indent, '<--', '{0}({1}) == {2}'.format(func.__name__, n, val))
+            print(line * indent, '<--', '{0}({1}) == {2}'.format(
+                func.__name__, n, val)
+                  )
             # indent -= 1
             return val
+
         return wrapper
+
     return deco_func
 
 
+@lru_cache(1024)
 @trace('____')
 def fib(n):
     if n < 2:
@@ -92,4 +87,12 @@ def fib(n):
     return fib(n - 1) + fib(n - 2)
 
 
-fib(3)
+if __name__ == '__main__':
+    print('Result my_pow with default k_pow:', *my_pow(1_000, 2_555, 5_123, 60))
+    print('Result my_pow with k_pow=3:', *my_pow(1_000, 2_555, 5, 6, k_pow=3))
+    print('Only even from list:', type_number([11, 22, 33, 44, 55], 'even'))
+    print('Only odd from list:', type_number([111, 222, 354, 456, 555], 'odd'))
+    print('Only simple from list:', type_number([11, 12, 30, 44, 5, 3], 'simple'))
+    print()
+    print()
+    fib(5)

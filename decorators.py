@@ -88,11 +88,11 @@ def fib(n):
 
 
 if __name__ == '__main__':
-    print('Result my_pow with default k_pow:', *my_pow(1_000, 2_555, 5_123, 60))
+    print('Result my_pow with default k_pow:', *my_pow(1_000, 2_555, 5123, 60))
     print('Result my_pow with k_pow=3:', *my_pow(1_000, 2_555, 5, 6, k_pow=3))
     print('Only even from list:', type_number([11, 22, 33, 44, 55], 'even'))
     print('Only odd from list:', type_number([111, 222, 354, 456, 555], 'odd'))
-    print('Only simple from list:', type_number([11, 12, 30, 44, 5, 3], 'simple'))
+    print('Only simple from list:', type_number([11, 44, 5, 3], 'simple'))
     print()
     print()
     fib(5)

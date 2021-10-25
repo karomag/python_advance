@@ -1,7 +1,12 @@
+import traceback
+
 import classes_pack as cp
+
 
 r20a2 = cp.Engine(10.0)
 honda = cp.Car(55, r20a2)
+
+print(honda)
 
 try:
     honda.start()
@@ -9,20 +14,27 @@ except cp.LowFuel:
     print('The fuel tank is empty.')
 
 honda.fuel_up(45)
+print('The tank is filled up', honda.fuel_lvl, 'liters.')
+
 honda.start()
-honda.fuel_lvl
-honda.fuel_up(10)
+print('{0} liters'.format(honda.fuel_lvl))
+try:
+    honda.fuel_up(100)
+except cp.OverFuel:
+    print(traceback.format_exc())
+print('The tank is filled up', honda.fuel_lvl, 'liters.')
 
 try:
-    honda.move_to(10)
+    print('The car has gone {0} kilometers'.format(honda.move_to(10)))
 except cp.LowFuel:
     print('Not enough fuel.')
 
-honda.fuel_lvl
+print('{0} liters'.format(honda.fuel_lvl))
+
 try:
-    honda.move_to(400)
+    print('The car has gone {0} kilometers'.format(honda.move_to(400)))
 except cp.LowFuel:
     print('Not enough fuel.')
 
-honda.fuel_lvl
+print('{0} liters'.format(honda.fuel_lvl))
 honda.stop()

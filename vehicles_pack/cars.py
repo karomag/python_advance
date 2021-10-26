@@ -11,7 +11,10 @@ class Engine:
 
 class Car(Vehicle):
 
+    autos = []
+
     def __init__(self, fuel_tank: int, engine: Engine):
+        self.autos.append(self)
         self.engine = engine
         self.fuel_consumption = engine.fuel_consumption
         self.__fuel = 0.0
@@ -51,3 +54,7 @@ class Car(Vehicle):
             raise OverFuel('The fuel tank is full, {0}l petrol is lost.'.
                            format(temp_fuel - self.__fuel)
                            )
+
+    @classmethod
+    def cars_count(cls):
+        return len(cls.autos)

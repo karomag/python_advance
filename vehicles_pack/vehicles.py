@@ -3,6 +3,11 @@ from abc import ABC, abstractmethod
 
 class Vehicle(ABC):
 
+    def __init__(self, year, make, model):
+        self.year = year
+        self.make = make
+        self.model = model
+
     @abstractmethod
     def start(self):
         pass
@@ -21,5 +26,5 @@ class Vehicle(ABC):
         pass
 
     @abstractmethod
-    def fuel_up(self, fuel):
+    def fill_gas_tank(self, fuel):
         pass

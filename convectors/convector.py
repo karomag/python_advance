@@ -2,7 +2,7 @@
 
 import click
 
-from convectors import ConvectorINI
+from convectors.convectors import ConvectorINI
 
 
 @click.command()
